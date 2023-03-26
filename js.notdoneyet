@@ -1,0 +1,51 @@
+let taskDOM = document.querySelector("#task");  // Inputa girdiğimiz değer.
+let listDOM = document.querySelector("#list");  // Listenin tamamı(ul).
+let allLiDOM = document.querySelectorAll("li"); // querySelectorAll ile tüm li'lerden oluşan array'ı tanımlıyoruz.
+
+
+function removeElement(erase) { 
+    erase.remove();            }
+          
+
+
+function markElement(){
+    this.classList.toggle("checked");
+}
+
+
+let closeButton = `<button 
+onclick="removeElement(parentNode)" 
+style="padding: 13px;" type="button" 
+class="close" 
+data-dismiss="toast"
+aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button>`
+
+
+function newElement() {
+
+    if (!taskDOM.value || !taskDOM.value.trim()) {
+        console.log("Listeye boş ekleme yapamazsınız!");
+        $(".error").toast('show') 
+    }
+
+    else {
+       
+        let liDOM = document.createElement("li"); 
+ 
+        listDOM.append(liDOM); 
+                                
+        console.log(`Listeye eklendi. Girilen değer: ${taskDOM.value}`)
+        
+        $(".success").toast('show') 
+
+        liDOM.innerHTML = `${taskDOM.value}${closeButton}`;
+       
+        liDOM.addEventListener("click", markElement);
+        setStrorage()
+    }  
+
+    taskDOM.value = ""; 
+}
+
